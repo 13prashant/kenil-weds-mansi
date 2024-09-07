@@ -3,25 +3,100 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  --background: 55 100% 96%; /* Light cream (#fffde9) */
+  --foreground: 240 10% 3.9%; /* Very dark gray (#0a0a0b) */
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --primary: 36 41% 33%; /* Dark brown (#785c32) */
+  --primary-foreground: 255 100% 100%; /* White (#ffffff) */
+
+  --secondary: 39 47% 45%; /* Lighter brown (#aa853e) */
+  --secondary-foreground: 0 0% 0%; /* Black (#000000) */
+
+  --muted: 224 100% 97%; /* Very light blue (#f0f4ff) */
+  --muted-foreground: 240 3.8% 46.1%; /* Medium gray (#737373) */
+
+  --p1: #785c3201; /* Primary with 1% opacity */
+  --p2: #785c3204; /* Primary with 4% opacity */
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text-foreground);
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+@layer components {
+  .btn {
+    @apply text-center bg-primary/90 px-6 py-2 rounded-sm font-semibold cursor-pointer hover:bg-secondary text-primary-foreground duration-200;
+  }
+
+  .btn-outline {
+    @apply text-primary bg-transparent border border-primary/90 hover:bg-primary hover:text-primary-foreground;
+  }
+}
+
+.desktop-bg {
+  background-color: var(--primary);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 1000'%3E%3Cg %3E%3Ccircle fill='%23785C32' cx='50' cy='0' r='50'/%3E%3Cg fill='%237e643a' %3E%3Ccircle cx='0' cy='50' r='50'/%3E%3Ccircle cx='100' cy='50' r='50'/%3E%3C/g%3E%3Ccircle fill='%23846b42' cx='50' cy='100' r='50'/%3E%3Cg fill='%238b734a' %3E%3Ccircle cx='0' cy='150' r='50'/%3E%3Ccircle cx='100' cy='150' r='50'/%3E%3C/g%3E%3Ccircle fill='%23917b53' cx='50' cy='200' r='50'/%3E%3Cg fill='%2397825b' %3E%3Ccircle cx='0' cy='250' r='50'/%3E%3Ccircle cx='100' cy='250' r='50'/%3E%3C/g%3E%3Ccircle fill='%239e8a64' cx='50' cy='300' r='50'/%3E%3Cg fill='%23a4926d' %3E%3Ccircle cx='0' cy='350' r='50'/%3E%3Ccircle cx='100' cy='350' r='50'/%3E%3C/g%3E%3Ccircle fill='%23ab9a76' cx='50' cy='400' r='50'/%3E%3Cg fill='%23b1a27f' %3E%3Ccircle cx='0' cy='450' r='50'/%3E%3Ccircle cx='100' cy='450' r='50'/%3E%3C/g%3E%3Ccircle fill='%23b8aa88' cx='50' cy='500' r='50'/%3E%3Cg fill='%23bfb291' %3E%3Ccircle cx='0' cy='550' r='50'/%3E%3Ccircle cx='100' cy='550' r='50'/%3E%3C/g%3E%3Ccircle fill='%23c5ba9a' cx='50' cy='600' r='50'/%3E%3Cg fill='%23ccc3a4' %3E%3Ccircle cx='0' cy='650' r='50'/%3E%3Ccircle cx='100' cy='650' r='50'/%3E%3C/g%3E%3Ccircle fill='%23d3cbae' cx='50' cy='700' r='50'/%3E%3Cg fill='%23dad3b7' %3E%3Ccircle cx='0' cy='750' r='50'/%3E%3Ccircle cx='100' cy='750' r='50'/%3E%3C/g%3E%3Ccircle fill='%23e1dbc1' cx='50' cy='800' r='50'/%3E%3Cg fill='%23e9e4cb' %3E%3Ccircle cx='0' cy='850' r='50'/%3E%3Ccircle cx='100' cy='850' r='50'/%3E%3C/g%3E%3Ccircle fill='%23f0ecd5' cx='50' cy='900' r='50'/%3E%3Cg fill='%23f7f5df' %3E%3Ccircle cx='0' cy='950' r='50'/%3E%3Ccircle cx='100' cy='950' r='50'/%3E%3C/g%3E%3Ccircle fill='%23FFFDE9' cx='50' cy='1000' r='50'/%3E%3C/g%3E%3C/svg%3E");
+  background-attachment: fixed;
+  background-size: contain;
+}
+
+.pattern {
+  background-color: #fffde9;
+  opacity: 1;
+  background-image: linear-gradient(
+      30deg,
+      var(--p1) 12%,
+      transparent 12.5%,
+      transparent 87%,
+      var(--p1) 87.5%,
+      var(--p1)
+    ),
+    linear-gradient(
+      150deg,
+      var(--p1) 12%,
+      transparent 12.5%,
+      transparent 87%,
+      var(--p1) 87.5%,
+      var(--p1)
+    ),
+    linear-gradient(
+      30deg,
+      var(--p1) 12%,
+      transparent 12.5%,
+      transparent 87%,
+      var(--p1) 87.5%,
+      var(--p1)
+    ),
+    linear-gradient(
+      150deg,
+      var(--p1) 12%,
+      transparent 12.5%,
+      transparent 87%,
+      var(--p1) 87.5%,
+      var(--p1)
+    ),
+    linear-gradient(
+      60deg,
+      var(--p2) 25%,
+      transparent 25.5%,
+      transparent 75%,
+      var(--p2) 75%,
+      var(--p2)
+    ),
+    linear-gradient(
+      60deg,
+      var(--p2) 25%,
+      transparent 25.5%,
+      transparent 75%,
+      var(--p2) 75%,
+      var(--p2)
+    );
+  background-size: 20px 35px;
+  background-position: 0 0, 0 0, 10px 18px, 10px 18px, 0 0, 10px 18px;
 }
