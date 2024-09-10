@@ -36,7 +36,9 @@ export default function CalendarButton() {
   const { deviceType } = useDeviceType();
   const { browserType } = useBrowserType();
 
-  const generateAppleCalendarUrl = async () => {
+  const handleSaveToCalendar = async () => {
+    const isSafariWithIOs = deviceType === "iOs" && browserType === "Safari";
+
     try {
       const icsValue = (await generateICS(calendarEvent)) as BlobPart;
 
@@ -46,18 +48,24 @@ export default function CalendarButton() {
 
       const url = URL.createObjectURL(blob);
 
-      const link = document.createElement("a");
+      if (isSafariWithIOs) {
+        const link = document.createElement("a");
 
-      link.href = url;
-      link.download = "wedding-invitation.ics";
+        link.href = url;
+        link.download = "wedding-invitation.ics";
 
-      document.body.appendChild(link);
+        document.body.appendChild(link);
 
-      link.click();
+        link.click();
 
-      document.body.removeChild(link);
+        document.body.removeChild(link);
 
-      URL.revokeObjectURL(url);
+        URL.revokeObjectURL(url);
+      } else {
+        const webcalUrl = url.replace("http", "webcal");
+
+        window.location.href = webcalUrl;
+      }
     } catch (error) {
       console.error("Error generating ICS file: ", error);
 
@@ -66,28 +74,6 @@ export default function CalendarButton() {
           Something went wrong! Please refresh the page and try again.
         </div>
       );
-    }
-  };
-
-  const generateGoogleCalendarUrl = () => {
-    const params = new URLSearchParams({
-      action: "TEMPLATE",
-      dates: "20241116T123000Z/20241116T163000Z",
-      details: calendarEvent.description as string,
-      location: calendarEvent.location as string,
-      text: calendarEvent.title as string,
-    });
-
-    return `https://www.google.com/calendar/render?${params.toString()}`;
-  };
-
-  const handleSaveToCalendar = async () => {
-    const isSafariWithIOs = deviceType === "iOs" && browserType === "Safari";
-
-    if (isSafariWithIOs) {
-      await generateAppleCalendarUrl();
-    } else {
-      window.open(generateGoogleCalendarUrl());
     }
   };
 
