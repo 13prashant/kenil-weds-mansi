@@ -1,7 +1,7 @@
 import toast from "react-hot-toast";
 import { EventAttributes } from "ics";
-import useDeviceType from "@/hooks/useDeviceType";
-import useBrowserType from "@/hooks/useBrowserType";
+// import useDeviceType from "@/hooks/useDeviceType";
+// import useBrowserType from "@/hooks/useBrowserType";
 import { generateICS } from "@/lib/generateICS";
 
 const calendarEvent: EventAttributes = {
@@ -33,10 +33,12 @@ const calendarEvent: EventAttributes = {
 };
 
 export default function CalendarButton() {
-  const { deviceType } = useDeviceType();
-  const { browserType } = useBrowserType();
+  // const { deviceType } = useDeviceType();
+  // const { browserType } = useBrowserType();
 
-  const generateAppleCalendarUrl = async () => {
+  const handleSaveToCalendar = async () => {
+    // const isSafariWithIOs = deviceType === "iOs" && browserType === "Safari";
+
     try {
       const icsValue = (await generateICS(calendarEvent)) as BlobPart;
 
@@ -46,6 +48,7 @@ export default function CalendarButton() {
 
       const url = URL.createObjectURL(blob);
 
+      // if (isSafariWithIOs) {
       const link = document.createElement("a");
 
       link.href = url;
@@ -58,6 +61,19 @@ export default function CalendarButton() {
       document.body.removeChild(link);
 
       URL.revokeObjectURL(url);
+      // } else {
+      //   /**
+      //    * GOOGLE CALENDAR URL
+      //       const params = new URLSearchParams({
+      //         action: "TEMPLATE",
+      //         dates: "20241116T123000Z/20241116T163000Z",
+      //         details: calendarEvent.description as string,
+      //         location: calendarEvent.location as string,
+      //         text: calendarEvent.title as string,
+      //       });
+      //   */
+      //   return `https://www.google.com/calendar/render?${params.toString()}`;
+      // }
     } catch (error) {
       console.error("Error generating ICS file: ", error);
 
@@ -66,28 +82,6 @@ export default function CalendarButton() {
           Something went wrong! Please refresh the page and try again.
         </div>
       );
-    }
-  };
-
-  const generateGoogleCalendarUrl = () => {
-    const params = new URLSearchParams({
-      action: "TEMPLATE",
-      dates: "20241116T123000Z/20241116T163000Z",
-      details: calendarEvent.description as string,
-      location: calendarEvent.location as string,
-      text: calendarEvent.title as string,
-    });
-
-    return `https://www.google.com/calendar/render?${params.toString()}`;
-  };
-
-  const handleSaveToCalendar = async () => {
-    const isSafariWithIOs = deviceType === "iOs" && browserType === "Safari";
-
-    if (isSafariWithIOs) {
-      await generateAppleCalendarUrl();
-    } else {
-      window.open(generateGoogleCalendarUrl());
     }
   };
 
