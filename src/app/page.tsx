@@ -1,11 +1,14 @@
 "use client";
 
-import Image from "next/image";
-import Confetti from "react-confetti";
-import useWindowSize from "@/hooks/useWindowSize";
+import CalendarButton, {
+  GOOGLE_MAP_URL,
+  LOCATION,
+} from "@/components/CalendarButton";
 import ShootingStars from "@/components/ShootingStars";
 import StarsBackground from "@/components/StarsBackground";
-import CalendarButton from "@/components/CalendarButton";
+import useWindowSize from "@/hooks/useWindowSize";
+import Image from "next/image";
+import Confetti from "react-confetti";
 
 export default function Page() {
   const { windowSize } = useWindowSize();
@@ -63,35 +66,38 @@ export default function Page() {
             </div>
           </div>
 
-          <div className="mb-3 relative w-fit">
-            <h4 className="text text-primary">Wedding Ceremony</h4>
-            <span className="text-xl font-bold text-black/70">
-              17 Nov&apos;24 at 6 PM
-            </span>
-          </div>
-          <div>
+          <div className="mb-3">
             <h4 className="text text-primary">Dinner</h4>
             <span className="text-xl font-bold text-black/70">
               16 Nov&apos;24 at 5 PM
             </span>
           </div>
+          <div>
+            <h4 className="text text-primary">Wedding Ceremony</h4>
+            <span className="text-xl font-bold text-black/70">
+              17 Nov&apos;24 at 6 PM
+            </span>
+          </div>
 
-          <p className="font-semibold mt-10 mb-3 text-black/50">
-            Vitthal Nagar, Budiya, Surat- 394230
-          </p>
+          <div className="mt-10 max-w-64">
+            <p className="font-semibold mb-3 text-sm text-black/50">
+              {LOCATION}
+            </p>
 
-          <div className="flex flex-col gap-3">
-            <CalendarButton />
-            <a
-              href={"https://maps.app.goo.gl/5p8zfSeLxp2W5yg57"}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-outline"
-            >
-              Open Location
-            </a>
+            <div className="flex flex-col gap-3">
+              <CalendarButton />
+              <a
+                href={GOOGLE_MAP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-outline"
+              >
+                Open Location
+              </a>
+            </div>
           </div>
         </div>
+
         <ShootingStars />
         <StarsBackground />
       </section>
